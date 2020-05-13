@@ -1,0 +1,19 @@
+{% load staticfiles %}
+
+<html>
+	<head>
+		<script src="{% static 'socket.io.js' %}"></script>
+	</head>
+	<body>
+		<div id="content">
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	let socket = io.connect('http://localhost:35775');
+	socket.emit('init', {});
+	socket.on('scrapy', (data) => {
+		document.getElementById("content").innerHTML = "<div> Time: " + data.time + "</div>" + "<pre>" + data.res + "</pre>";
+		console.log(data)
+	});
+</script>
